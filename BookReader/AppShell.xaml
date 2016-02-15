@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="BookReader.AppShell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BookReader"
+    xmlns:vm="using:BookReader.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:BookReader.Views"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="MenuStates">
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1280" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HamburgerSplitView.DisplayMode" Value="Inline" />
+                        <Setter Target="HamburgerSplitView.IsPaneOpen" Value="True" />
+                        <Setter Target="TogglePaneButton.IsEnabled" Value="False" />
+                        <Setter Target="TogglePaneButton.Opacity" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Medium">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HamburgerSplitView.DisplayMode" Value="CompactOverlay" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Narrow" />
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        <RelativePanel Grid.Row="0">
+            <ToggleButton x:Name="TogglePaneButton"
+                          IsChecked="{Binding IsPaneOpen, ElementName=HamburgerSplitView, Mode=TwoWay}"
+                          Style="{StaticResource SplitViewTogglePaneButtonStyle}"
+                          TabIndex="1" 
+                          RelativePanel.AlignLeftWithPanel="True"/>
+        </RelativePanel>
+        <SplitView Name="HamburgerSplitView" 
+                   Style="{StaticResource MenuSplitViewStyle}"
+                   Grid.Row="1">
+            <SplitView.Pane>
+                <views:MenuView></views:MenuView>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Frame Name="PageContent"/>
+            </SplitView.Content>
+        </SplitView>
+
+    </Grid>
+</Page>

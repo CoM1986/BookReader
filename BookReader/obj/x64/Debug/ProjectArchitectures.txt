@@ -1,0 +1,2 @@
+D:\BookReader\BookReader\BookReader.csproj;x64
+D:\BookReader\FB2UapLibrary\FB2UapLibrary.csproj;x64

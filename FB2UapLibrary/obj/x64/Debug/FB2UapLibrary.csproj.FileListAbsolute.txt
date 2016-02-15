@@ -1,0 +1,16 @@
+D:\BookReader\FB2UapLibrary\bin\x64\Debug\FB2UapLibrary.dll
+D:\BookReader\FB2UapLibrary\bin\x64\Debug\FB2UapLibrary.pdb
+D:\BookReader\FB2UapLibrary\bin\x64\Debug\FB2UapLibrary.pri
+D:\BookReader\FB2UapLibrary\obj\x64\Debug\FB2UapLibrary.dll
+D:\BookReader\FB2UapLibrary\obj\x64\Debug\FB2UapLibrary.pdb
+D:\BookReader\FB2UapLibrary\obj\x64\Debug\priconfig.xml
+D:\BookReader\FB2UapLibrary\obj\x64\Debug\priconfig.xml.intermediate
+D:\BookReader\FB2UapLibrary\obj\x64\Debug\layout.resfiles
+D:\BookReader\FB2UapLibrary\obj\x64\Debug\layout.resfiles.intermediate
+D:\BookReader\FB2UapLibrary\obj\x64\Debug\resources.resfiles
+D:\BookReader\FB2UapLibrary\obj\x64\Debug\resources.resfiles.intermediate
+D:\BookReader\FB2UapLibrary\obj\x64\Debug\pri.resfiles
+D:\BookReader\FB2UapLibrary\obj\x64\Debug\pri.resfiles.intermediate
+D:\BookReader\FB2UapLibrary\obj\x64\Debug\qualifiers.txt
+D:\BookReader\FB2UapLibrary\obj\x64\Debug\qualifiers.txt.intermediate
+D:\BookReader\FB2UapLibrary\obj\x64\Debug\MultipleQualifiersPerDimensionFound.txt
