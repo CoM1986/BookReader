@@ -30,6 +30,7 @@ namespace BookReader
         {
             var shell = Container.Resolve<AppShell>();
             shell.SetContentFrame(rootFrame);
+            
             return shell;
         }
 
@@ -43,6 +44,7 @@ namespace BookReader
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
             //NavigationService.Navigate(PageTokens.Library, null);
+            
             return Task.FromResult(true);
         }
     }

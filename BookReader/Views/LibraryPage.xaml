@@ -46,7 +46,8 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ListView ItemsSource="{Binding Books}"
                   ItemTemplateSelector="{StaticResource PreviewTemplateSelector}"
-                  ItemContainerStyle="{StaticResource ListViewItemBrStyle}">
+                  ItemContainerStyle="{StaticResource ListViewItemBrStyle}"
+                  Margin="0,50,0,0">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapGrid Orientation="Horizontal" MaximumRowsOrColumns="100" HorizontalAlignment="Center"></WrapGrid>

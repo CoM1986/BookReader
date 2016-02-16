@@ -24,24 +24,23 @@ namespace BookReader.ViewModels
         public MenuViewModel(INavigationService navigationService, IResourceLoader resourceLoader)
         {
             _navigationService = navigationService;
-            
+
             MenuItemViewModels = new ObservableCollection<MenuItemViewModel>
             {
                 new MenuItemViewModel
                 {
                     DisplayName = resourceLoader.GetString("LibraryDisplayName"),
-                    FontIcon ="\uE7bc",
-                    Command = new DelegateCommand(NavigateToLibrary, ()=>true)
+                    FontIcon = "\uE7bc",
+                    Command = new DelegateCommand(NavigateToLibrary, () => true)
                 },
                 new MenuItemViewModel
                 {
                     DisplayName = resourceLoader.GetString("FavoritesDisplayName"),
-                    FontIcon ="\uE734",
-                    Command = new DelegateCommand(NavigateToFavorites, ()=>true)
+                    FontIcon = "\uE734",
+                    Command = new DelegateCommand(NavigateToFavorites, () => true)
                 },
             };
             SelectedMenuItemViewModel = MenuItemViewModels.First();
-            
         }
 
         private void NavigateToLibrary()

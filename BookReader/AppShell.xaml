@@ -39,7 +39,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         
-        <RelativePanel Grid.Row="0">
+        <RelativePanel Grid.Row="0" Background="{ThemeResource AppBarBackgroundThemeBrush}">
             <ToggleButton x:Name="TogglePaneButton"
                           IsChecked="{Binding IsPaneOpen, ElementName=HamburgerSplitView, Mode=TwoWay}"
                           Style="{StaticResource SplitViewTogglePaneButtonStyle}"
