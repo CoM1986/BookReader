@@ -7,23 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     xmlns:viewModels="using:BookReader.ViewModels"
+    xmlns:converters="using:BookReader.Converters"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <converters:ObjectToMenuItemViewModelConverter x:Key="ObjectToMenuItemViewModelConverter"/>
         <DataTemplate x:Key="MenuItemTemplate" x:DataType="viewModels:MenuItemViewModel">
-            <Grid>
-                <Button AutomationProperties.Name="{Binding DisplayName}"
-                        Command="{x:Bind Path=Command}"
-                        Style="{StaticResource SplitViewMenuButtonStyle}"
-                        ToolTipService.ToolTip="{x:Bind Path=DisplayName}">
-                    <StackPanel Orientation="Horizontal">
-                        <FontIcon Glyph="{x:Bind Path=FontIcon}" Style="{StaticResource SplitViewMenuFontIconStyle}" />
-                        <TextBlock AutomationProperties.AccessibilityView="Raw"
-                                   Style="{StaticResource SplitViewMenuItemTextStyle}"
-                                   Text="{x:Bind Path=DisplayName}" />
-                    </StackPanel>
-                </Button>
-            </Grid>
+            <StackPanel Orientation="Horizontal"
+                        Margin="0"
+                        Height="48">
+                <FontIcon Glyph="{x:Bind Path=FontIcon}" 
+                          Style="{StaticResource SplitViewMenuFontIconStyle}" />
+                <TextBlock AutomationProperties.AccessibilityView="Raw"
+                           Style="{StaticResource SplitViewMenuItemTextStyle}"
+                           Text="{x:Bind Path=DisplayName}" />
+            </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -46,10 +44,22 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <ItemsControl x:Name="MenuItemsControl"
-                      Margin="0,0,0,0"
-                      IsTabStop="False"
-                      ItemTemplate="{StaticResource MenuItemTemplate}"
-                      ItemsSource="{x:Bind Path=ConcreteDataContext.Commands}" />
+        <ListBox x:Name="MenuItemsControl"
+                 SelectionMode="Single"
+                 Margin="0"
+                 Padding="0"
+                 IsTabStop="False"
+                 ItemTemplate="{StaticResource MenuItemTemplate}"
+                 ItemsSource="{x:Bind Path=ConcreteDataContext.MenuItemViewModels}" 
+                 SelectionChanged="MenuItemsControl_SelectionChanged"
+                 SelectedItem="{x:Bind Path=ConcreteDataContext.SelectedMenuItemViewModel, Converter={StaticResource ObjectToMenuItemViewModelConverter}, Mode=TwoWay}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Height" Value="48"/>
+                    <Setter Property="Margin" Value="0"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
     </Grid>
 </UserControl>

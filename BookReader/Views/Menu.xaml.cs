@@ -26,5 +26,10 @@ namespace BookReader.Views
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MenuViewModel ConcreteDataContext => DataContext as MenuViewModel;
+
+        private void MenuItemsControl_SelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
+        {
+            ConcreteDataContext.SelectedMenuItemViewModel.Command.Execute(null);
+        }
     }
 }

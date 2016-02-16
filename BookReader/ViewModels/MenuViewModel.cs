@@ -12,31 +12,40 @@ namespace BookReader.ViewModels
         private readonly INavigationService _navigationService;
         private bool _canNavigateToLibrary = false;
         private bool _canNavigateToFavorites = true;
-        public ObservableCollection<MenuItemViewModel> Commands { get; set; }
+        public ObservableCollection<MenuItemViewModel> MenuItemViewModels { get; set; }
+        private MenuItemViewModel _selectedMenuItemViewModel;
+
+        public MenuItemViewModel SelectedMenuItemViewModel
+        {
+            get { return _selectedMenuItemViewModel; }
+            set { SetProperty(ref _selectedMenuItemViewModel, value); }
+        }
 
         public MenuViewModel(INavigationService navigationService, IResourceLoader resourceLoader)
         {
             _navigationService = navigationService;
-            Commands = new ObservableCollection<MenuItemViewModel>
+            
+            MenuItemViewModels = new ObservableCollection<MenuItemViewModel>
             {
                 new MenuItemViewModel
                 {
                     DisplayName = resourceLoader.GetString("LibraryDisplayName"),
                     FontIcon ="\uE7bc",
-                    Command = new DelegateCommand(NavigateToLibrary, CanNavigateToLibrary)
+                    Command = new DelegateCommand(NavigateToLibrary, ()=>true)
                 },
                 new MenuItemViewModel
                 {
                     DisplayName = resourceLoader.GetString("FavoritesDisplayName"),
                     FontIcon ="\uE734",
-                    Command = new DelegateCommand(NavigateToFavorites, CanNavigateToFavorites)
+                    Command = new DelegateCommand(NavigateToFavorites, ()=>true)
                 },
             };
+            SelectedMenuItemViewModel = MenuItemViewModels.First();
+            
         }
 
         private void NavigateToLibrary()
         {
-            if (!CanNavigateToLibrary()) return;
             if (!_navigationService.Navigate(PageTokens.Library, null)) return;
             _canNavigateToLibrary = false;
             _canNavigateToFavorites = true;
@@ -45,7 +54,7 @@ namespace BookReader.ViewModels
 
         private void RaiseCanExecuteChanged()
         {
-            foreach (var delegateCommand in Commands.Select(item => item.Command as DelegateCommand))
+            foreach (var delegateCommand in MenuItemViewModels.Select(item => item.Command as DelegateCommand))
             {
                 delegateCommand?.RaiseCanExecuteChanged();
             }
@@ -58,7 +67,6 @@ namespace BookReader.ViewModels
 
         private void NavigateToFavorites()
         {
-            if (!CanNavigateToFavorites()) return;
             if (!_navigationService.Navigate(PageTokens.Favorites, null)) return;
             _canNavigateToLibrary = true;
             _canNavigateToFavorites = false;

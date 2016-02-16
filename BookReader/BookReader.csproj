@@ -100,6 +100,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ObjectToMenuItemViewModelConverter.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\BookPreviewModel.cs" />
     <Compile Include="Model\IPredicateResult.cs" />

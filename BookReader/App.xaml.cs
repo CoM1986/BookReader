@@ -42,7 +42,7 @@ namespace BookReader
 
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-            NavigationService.Navigate(PageTokens.Library, null);
+            //NavigationService.Navigate(PageTokens.Library, null);
             return Task.FromResult(true);
         }
     }

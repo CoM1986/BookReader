@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Prism.Windows.AppModel;
 using Prism.Windows.Navigation;
 
 namespace BookReader.ViewModels
 {
-    public class LibraryPageViewModel : PageViewModel
+    public class LibraryPageViewModel : PageViewModel, INavigationAware
     {
+        
         IList<BookPreviewViewModel> _books;
 
         public IList<BookPreviewViewModel> Books
@@ -23,10 +25,16 @@ namespace BookReader.ViewModels
 
         public LibraryPageViewModel(INavigationService navigationService, IResourceLoader resourceLoader)
         {
-            _books=new List<BookPreviewViewModel>();
-            _books.Add(new BookPreviewViewModel(navigationService, resourceLoader));
-            _books.Add(new BookPreviewViewModel(navigationService, resourceLoader));
-            _books.Add(new BookPreviewViewModel(navigationService, resourceLoader));
+            _books = new List<BookPreviewViewModel>
+            {
+                new AddNewBookViewModel(navigationService, resourceLoader),
+                new BookPreviewViewModel(navigationService, resourceLoader),
+                new BookPreviewViewModel(navigationService, resourceLoader),
+                new BookPreviewViewModel(navigationService, resourceLoader)
+            };
         }
+
+
+
     }
 }

@@ -9,6 +9,5 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button Name="TestButton" Click="TestButton_OnClick"></Button>
     </Grid>
 </prismMvvm:SessionStateAwarePage>

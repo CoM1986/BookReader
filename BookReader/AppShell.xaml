@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="MenuStates">
-                <VisualState x:Name="Wide">
+                <!--<VisualState x:Name="Wide">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="1280" />
                     </VisualState.StateTriggers>
@@ -26,7 +26,7 @@
                         <Setter Target="TogglePaneButton.IsEnabled" Value="False" />
                         <Setter Target="TogglePaneButton.Opacity" Value="0" />
                     </VisualState.Setters>
-                </VisualState>
+                </VisualState>-->
                 <VisualState x:Name="Medium">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="800" />
@@ -50,7 +50,7 @@
                    Style="{StaticResource MenuSplitViewStyle}"
                    Grid.Row="1">
             <SplitView.Pane>
-                <views:MenuView></views:MenuView>
+                <views:MenuView/>
             </SplitView.Pane>
             <SplitView.Content>
                 <Frame Name="PageContent"/>
