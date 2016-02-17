@@ -52,7 +52,7 @@
                  ItemTemplate="{StaticResource MenuItemTemplate}"
                  ItemsSource="{x:Bind Path=ConcreteDataContext.MenuItemViewModels}" 
                  SelectionChanged="MenuItemsControl_SelectionChanged"
-                 SelectedItem="{x:Bind Path=ConcreteDataContext.SelectedMenuItemViewModel, Converter={StaticResource ObjectToMenuItemViewModelConverter}, Mode=TwoWay}" 
+                 SelectedItem="{Binding SelectedMenuItemViewModel, Mode=TwoWay}" 
                  Background="{ThemeResource ApplicationForegroundThemeBrush}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">

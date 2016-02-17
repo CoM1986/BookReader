@@ -1,9 +1,10 @@
 ﻿namespace BookReader.ViewModels
 {
-    internal class FavoritesPageViewModel : PageViewModel
+    public class FavoritesPageViewModel : PageViewModel
     {
-        internal FavoritesPageViewModel()
+        public FavoritesPageViewModel()
         {
+            PageToken = PageTokens.Favorites;
         }
         
 

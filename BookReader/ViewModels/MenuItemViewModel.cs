@@ -8,6 +8,7 @@ namespace BookReader.ViewModels
     {
         public String DisplayName { get; set; }
         public String FontIcon { get; set; }
+        public String AssignedPage { get; set; }
         public ICommand Command { get; set; }
         public override string ToString()
         {

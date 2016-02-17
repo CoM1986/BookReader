@@ -25,6 +25,7 @@ namespace BookReader.ViewModels
 
         public LibraryPageViewModel(INavigationService navigationService, IResourceLoader resourceLoader)
         {
+            PageToken = PageTokens.Library;
             _books = new List<BookPreviewViewModel>
             {
                 new AddNewBookViewModel(navigationService, resourceLoader),

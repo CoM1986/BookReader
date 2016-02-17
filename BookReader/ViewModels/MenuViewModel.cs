@@ -4,77 +4,70 @@ using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Windows.UI.Xaml.Controls;
+using BookReader.Views;
+using Prism.Events;
+using Prism.Unity.Windows;
 
 namespace BookReader.ViewModels
 {
     public class MenuViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
-        private bool _canNavigateToLibrary = false;
-        private bool _canNavigateToFavorites = true;
         public ObservableCollection<MenuItemViewModel> MenuItemViewModels { get; set; }
         private MenuItemViewModel _selectedMenuItemViewModel;
 
         public MenuItemViewModel SelectedMenuItemViewModel
         {
             get { return _selectedMenuItemViewModel; }
-            set { SetProperty(ref _selectedMenuItemViewModel, value); }
+            set
+            {
+                _prevMenuItemViewModel = _selectedMenuItemViewModel;
+                SetProperty(ref _selectedMenuItemViewModel, value);
+            }
         }
 
-        public MenuViewModel(INavigationService navigationService, IResourceLoader resourceLoader)
+        private MenuItemViewModel _prevMenuItemViewModel = null;
+        public MenuViewModel(INavigationService navigationService, IResourceLoader resourceLoader, IEventAggregator aggregator)
         {
             _navigationService = navigationService;
-
             MenuItemViewModels = new ObservableCollection<MenuItemViewModel>
             {
                 new MenuItemViewModel
                 {
+                    AssignedPage = PageTokens.Library,
                     DisplayName = resourceLoader.GetString("LibraryDisplayName"),
                     FontIcon = "\uE7bc",
-                    Command = new DelegateCommand(NavigateToLibrary, () => true)
+                    Command = new DelegateCommand(Navigate, () => true)
                 },
                 new MenuItemViewModel
                 {
+                    AssignedPage = PageTokens.Favorites,
                     DisplayName = resourceLoader.GetString("FavoritesDisplayName"),
                     FontIcon = "\uE734",
-                    Command = new DelegateCommand(NavigateToFavorites, () => true)
+                    Command = new DelegateCommand(Navigate, () => true)
                 },
             };
             SelectedMenuItemViewModel = MenuItemViewModels.First();
+            //вот это я долго искал! вообще бы наверно как-то надо бы напрямую забиндить во фрейм SelectedItem, но пока так.
+            aggregator.GetEvent<NavigationStateChangedEvent>().Subscribe(ReturnSelectedItem);
         }
 
-        private void NavigateToLibrary()
+        private void ReturnSelectedItem(NavigationStateChangedEventArgs e)
         {
-            if (!_navigationService.Navigate(PageTokens.Library, null)) return;
-            _canNavigateToLibrary = false;
-            _canNavigateToFavorites = true;
-            RaiseCanExecuteChanged();
-        }
-
-        private void RaiseCanExecuteChanged()
-        {
-            foreach (var delegateCommand in MenuItemViewModels.Select(item => item.Command as DelegateCommand))
+            //после этого попробует еще раз навигейтнуть на текущую страницу, но я думаю прризм это не пропустит
+            if (e.StateChange == StateChangeType.Back)
             {
-                delegateCommand?.RaiseCanExecuteChanged();
+                if (e.Sender.Content is LibraryPage)
+                    SelectedMenuItemViewModel = MenuItemViewModels.First(el => el.AssignedPage == PageTokens.Library);
+                if (e.Sender.Content is FavoritesPage)
+                    SelectedMenuItemViewModel = MenuItemViewModels.First(el => el.AssignedPage == PageTokens.Favorites);
             }
         }
 
-        private bool CanNavigateToLibrary()
+        private void Navigate()
         {
-            return _canNavigateToLibrary;
-        }
-
-        private void NavigateToFavorites()
-        {
-            if (!_navigationService.Navigate(PageTokens.Favorites, null)) return;
-            _canNavigateToLibrary = true;
-            _canNavigateToFavorites = false;
-            RaiseCanExecuteChanged();
-        }
-
-        private bool CanNavigateToFavorites()
-        {
-            return _canNavigateToFavorites;
+            if (!_navigationService.Navigate(SelectedMenuItemViewModel.AssignedPage, null)) return;
         }
     }
 }

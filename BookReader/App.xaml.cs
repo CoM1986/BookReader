@@ -5,6 +5,8 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
 using BookReader.Model;
 using Prism.Windows.AppModel;
 using SQLite.Net;
@@ -26,6 +28,8 @@ namespace BookReader
             InitializeComponent();
         }
 
+        public IDeviceGestureService DeviceGestureServic => DeviceGestureService;
+
         protected override UIElement CreateShell(Frame rootFrame)
         {
             var shell = Container.Resolve<AppShell>();
@@ -37,14 +41,14 @@ namespace BookReader
         protected override Task OnInitializeAsync(IActivatedEventArgs args)
         {
             String path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "db.sqlite");
+            
             Container.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new Windows.ApplicationModel.Resources.ResourceLoader()));
             return base.OnInitializeAsync(args);
         }
 
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-            //NavigationService.Navigate(PageTokens.Library, null);
-            
+            NavigationService.Navigate(PageTokens.Library, null);
             return Task.FromResult(true);
         }
     }

@@ -7,6 +7,6 @@ namespace BookReader.ViewModels
 {
     public class PageViewModel : ViewModelBase, INavigationAware
     {
-        
+        public String PageToken { get; set; }
     }
 }
