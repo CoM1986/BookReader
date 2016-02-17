@@ -1,5 +1,6 @@
 ﻿using BookReader.ViewModels;
 using System.ComponentModel;
+using System.Linq;
 using Windows.UI.Xaml;
 
 // Шаблон элемента пустой страницы задокументирован по адресу http://go.microsoft.com/fwlink/?LinkId=234238

@@ -19,15 +19,14 @@ namespace BookReader.ViewModels
 
         public MenuItemViewModel SelectedMenuItemViewModel
         {
+            //дважды райзится
             get { return _selectedMenuItemViewModel; }
             set
             {
-                _prevMenuItemViewModel = _selectedMenuItemViewModel;
-                SetProperty(ref _selectedMenuItemViewModel, value);
+                SetProperty(ref _selectedMenuItemViewModel, value, "SelectedMenuItemViewModel");
             }
         }
 
-        private MenuItemViewModel _prevMenuItemViewModel = null;
         public MenuViewModel(INavigationService navigationService, IResourceLoader resourceLoader, IEventAggregator aggregator)
         {
             _navigationService = navigationService;
@@ -48,6 +47,7 @@ namespace BookReader.ViewModels
                     Command = new DelegateCommand(Navigate, () => true)
                 },
             };
+            
             SelectedMenuItemViewModel = MenuItemViewModels.First();
             //вот это я долго искал! вообще бы наверно как-то надо бы напрямую забиндить во фрейм SelectedItem, но пока так.
             aggregator.GetEvent<NavigationStateChangedEvent>().Subscribe(ReturnSelectedItem);
