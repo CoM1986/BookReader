@@ -6,7 +6,5 @@ namespace BookReader.ViewModels
 {
     internal class MainPageViewModel : BindableBase
     {
-        
-        
     }
 }

@@ -7,9 +7,11 @@ namespace BookReader.ViewModels
 {
     public class LibraryPageViewModel : PageViewModel, INavigationAware
     {
-        
+        #region Fields
         IList<BookPreviewViewModel> _books;
+        #endregion
 
+        #region Properties
         public IList<BookPreviewViewModel> Books
         {
             get
@@ -22,7 +24,9 @@ namespace BookReader.ViewModels
                 SetProperty(ref _books, value);
             }
         }
+        #endregion
 
+        #region Constructors
         public LibraryPageViewModel(INavigationService navigationService, IResourceLoader resourceLoader)
         {
             PageToken = PageTokens.Library;
@@ -34,8 +38,6 @@ namespace BookReader.ViewModels
                 new BookPreviewViewModel(navigationService, resourceLoader)
             };
         }
-
-
-
+        #endregion
     }
 }

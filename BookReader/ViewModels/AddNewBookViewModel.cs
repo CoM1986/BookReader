@@ -28,10 +28,12 @@ namespace BookReader.ViewModels
             fp.FileTypeFilter.Add(".fb2");
             fp.ViewMode = PickerViewMode.Thumbnail;
             var file = await fp.PickSingleFileAsync();
+
             if (file != null)
             {
                 var stream = await file.OpenAsync(FileAccessMode.Read);
-                XDocument doc = await Task.Run(() => XDocument.Load(stream.AsStreamForRead()));
+                XDocument doc = 
+                    await Task.Run(() => XDocument.Load(stream.AsStreamForRead()));
                 FB2File fb2File = new FB2File();
                 fb2File.Load(doc, false);
             }

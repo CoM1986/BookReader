@@ -10,8 +10,16 @@ namespace BookReader.ViewModels
 {
     public class BookPreviewViewModel : ViewModelBase
     {
+        #region Fields
         private string _name;
+        private byte[] _cover;
+        private string _author;
 
+        public ICommand OpenBook { get; set; }
+        private readonly INavigationService _navigationService;
+        #endregion
+
+        #region Properties
         public string Name
         {
             get
@@ -19,7 +27,10 @@ namespace BookReader.ViewModels
                 return _name;
             }
 
-            set { SetProperty(ref _name, value); }
+            set
+            {
+                SetProperty(ref _name, value);
+            }
         }
 
         public string Author
@@ -47,18 +58,15 @@ namespace BookReader.ViewModels
                 SetProperty(ref _cover, value);
             }
         }
+        #endregion
 
-        private byte[] _cover;
-        private string _author;
-
-        public ICommand OpenBook { get; set; }
-        private readonly INavigationService _navigationService;
-
+        #region Constructors
         public BookPreviewViewModel(INavigationService navigationService, IResourceLoader resourceLoader)
         {
             _navigationService = navigationService;
             OpenBook = new DelegateCommand(OpenBookAction, () => true);
         }
+        #endregion
 
         private void OpenBookAction()
         {

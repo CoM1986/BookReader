@@ -6,7 +6,5 @@
         {
             PageToken = PageTokens.Favorites;
         }
-        
-
     }
 }

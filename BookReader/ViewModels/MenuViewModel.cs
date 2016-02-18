@@ -13,10 +13,13 @@ namespace BookReader.ViewModels
 {
     public class MenuViewModel : ViewModelBase
     {
+        #region Fields
         private readonly INavigationService _navigationService;
         public ObservableCollection<MenuItemViewModel> MenuItemViewModels { get; set; }
         private MenuItemViewModel _selectedMenuItemViewModel;
+        #endregion
 
+        #region Properties
         public MenuItemViewModel SelectedMenuItemViewModel
         {
             //дважды райзится
@@ -26,7 +29,9 @@ namespace BookReader.ViewModels
                 SetProperty(ref _selectedMenuItemViewModel, value, "SelectedMenuItemViewModel");
             }
         }
+        #endregion
 
+        #region Constructrs
         public MenuViewModel(INavigationService navigationService, IResourceLoader resourceLoader, IEventAggregator aggregator)
         {
             _navigationService = navigationService;
@@ -52,7 +57,9 @@ namespace BookReader.ViewModels
             //вот это я долго искал! вообще бы наверно как-то надо бы напрямую забиндить во фрейм SelectedItem, но пока так.
             aggregator.GetEvent<NavigationStateChangedEvent>().Subscribe(ReturnSelectedItem);
         }
+        #endregion
 
+        #region Methods
         private void ReturnSelectedItem(NavigationStateChangedEventArgs e)
         {
             //после этого попробует еще раз навигейтнуть на текущую страницу, но я думаю прризм это не пропустит
@@ -69,5 +76,6 @@ namespace BookReader.ViewModels
         {
             if (!_navigationService.Navigate(SelectedMenuItemViewModel.AssignedPage, null)) return;
         }
+        #endregion
     }
 }
